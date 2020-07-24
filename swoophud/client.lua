@@ -1,10 +1,10 @@
-local job = ""
-local health = 0
-local armor = 0
-local hunger = 0
-local thirst = 0
-local money = 0
-local bankMoney = 0
+local lvjob = ""
+local lvhealth = 0
+local lvarmor = 0
+local lvhunger = 0
+local lvthirst = 0
+local lvmoney = 0
+local lvbankMoney = 0
 
 Citizen.CreateThread(function()
     while true do 
@@ -12,34 +12,35 @@ Citizen.CreateThread(function()
         TriggerServerEvent("swoophud:getJob")
         TriggerServerEvent("swoophud:getPlayerState")
         Citizen.Wait(500)
+        local ped = GetPlayerPed(-1)
         SendNUIMessage({
             status = IsPauseMenuActive(),
-            money = money,
-            bankMoney = bankMoney,
-            job = job,
-            hunger = hunger,
-            thirst = thirst,
-            health = (GetEntityHealth(GetPlayerPed(-1))-100),
-            armor = GetPedArmour(GetPlayerPed(-1))
+            money = lvmoney,
+            bankMoney = lvbankMoney,
+            job = lvjob,
+            hunger = lvhunger,
+            thirst = lvthirst,
+            health = (GetEntityHealth(ped)-100),
+            armor = GetPedArmour(ped)
         })
     end
 end)
 
 RegisterNetEvent("swoophud:returnMoney")
 AddEventHandler("swoophud:returnMoney", function (m, bm)
-	money = m
-	bankMoney = bm
+	lvmoney = m
+	lvbankMoney = bm
 end)
 
 RegisterNetEvent("swoophud:returnJob")
 AddEventHandler("swoophud:returnJob", function (userJob)
-	job = userJob
+	lvjob = userJob
 end)
 
 RegisterNetEvent("swoophud:returnPlayerState")
 AddEventHandler("swoophud:returnPlayerState", function (hun, thi)
-    hunger = hun
-    thirst = thi
+    lvhunger = hun
+    lvthirst = thi
 end)
 
 
