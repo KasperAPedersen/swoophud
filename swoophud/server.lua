@@ -16,7 +16,7 @@ end)
 RegisterServerEvent("swoophud:getPlayerState")
 AddEventHandler("swoophud:getPlayerState", function()
 	local userID = vRP.getUserId({source}) -- Get user ID
-	TriggerClientEvent("swoophud:returnPlayerState", source, vRP.getHunger({userID}), vRP.getThirst({userID})) -- Call client event 'returnMoney'
+	TriggerClientEvent("swoophud:returnPlayerState", source, 100 - vRP.getHunger({userID}), 100 - vRP.getThirst({userID})) -- Call client event 'returnMoney'
 end)
 
 AddEventHandler("vRP:playerJoinGroup", function(user_id, group, gtype)
